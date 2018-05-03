@@ -13,3 +13,7 @@ Viande froide
 Muffins anglais
 oeufs
 */
+
+/*
+test modif liste depicerie
+*/
