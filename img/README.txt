@@ -1,0 +1,1 @@
+Inclure toutes les images (icones, splash screens, etc) ainsi que les sources des images (fichier Inkscape, par exemple) ici.
