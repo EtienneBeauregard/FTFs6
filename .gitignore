@@ -255,5 +255,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+### Servers ###
+src/Servers/
 
 # End of https://www.gitignore.io/api/java,python,eclipse,java-web,intellij
