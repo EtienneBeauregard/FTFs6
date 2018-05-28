@@ -1,7 +1,7 @@
 /**************************************************************************************************************
- * Classe implémentant un petit serveur HTTP de base.
+ * Classe implÃ©mentant un petit serveur HTTP de base.
  * 
- * @author  Éric Poirier
+ * @author  Ã‰ric Poirier
  * @date    25 mai 2018
  * @version 1.0
  * 
@@ -9,19 +9,19 @@
 
 package ftf.s6.server.http;                    // Package custom pour ftf.
 
-import java.io.IOException;                    // Permet de gérer des exceptions de I/O.
+import java.io.IOException;                    // Permet de gÃ©rer des exceptions de I/O.
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;  // Permet de gérer une requête client (ce qui est reçu par le serveur).
-import javax.servlet.http.HttpServletResponse; // Permet de gérer une réponse serveur (ce qui sort du serveur).
+import javax.servlet.http.HttpServletRequest;  // Permet de gÃ©rer une requÃªte client (ce qui est reÃ§u par le serveur).
+import javax.servlet.http.HttpServletResponse; // Permet de gÃ©rer une rÃ©ponse serveur (ce qui sort du serveur).
 
 
 /**************************************************************************************************************
  * Servelet HTTP FTF.
  * 
- * Cette classe permet de mettre sur pied un petit serveur HTTP permettant à un utilisateur d'envoyer une
- * chaîne de caractères à un serveur et de recevoir une réponse personalisée de ce dernier.
+ * Cette classe permet de mettre sur pied un petit serveur HTTP permettant Ã  un utilisateur d'envoyer une
+ * chaÃ®ne de caractÃ¨res Ã  un serveur et de recevoir une rÃ©ponse personalisÃ©e de ce dernier.
  * 
  *************************************************************************************************************/
 public class SimpleHTTPServer extends HttpServlet {
@@ -31,10 +31,10 @@ public class SimpleHTTPServer extends HttpServlet {
 /// ====================================================================================================================
     
     /***********************************************************************************************************
-     * Gère une requête 'GET' de la part du client.
+     * GÃ¨re une requÃªte 'GET' de la part du client.
      * 
-     * @param req   La requête 'GET' du client.
-     * @param resp  La réponse du serveur.
+     * @param req   La requÃªte 'GET' du client.
+     * @param resp  La rÃ©ponse du serveur.
      * 
      * @see SimpleHTTPServer#manageClientRequest
      * 
@@ -46,10 +46,10 @@ public class SimpleHTTPServer extends HttpServlet {
     
     
     /***********************************************************************************************************
-     * Gère une requête 'POST' de la part du client.
+     * GÃ¨re une requÃªte 'POST' de la part du client.
      * 
-     * @param req   La requête 'POST' du client.
-     * @param resp  La réponse du serveur.
+     * @param req   La requÃªte 'POST' du client.
+     * @param resp  La rÃ©ponse du serveur.
      * 
      * @see SimpleHTTPServer#manageClientRequest
      * 
@@ -61,14 +61,14 @@ public class SimpleHTTPServer extends HttpServlet {
 
 
     /***********************************************************************************************************
-     * Gère une requête 'POST' de la part du client.
+     * GÃ¨re une requÃªte 'POST' de la part du client.
      * 
-     * Dans sa forme actuelle, la méthode récupère la chaîne de caractères envoyée par l'utilisateur (lorsque
+     * Dans sa forme actuelle, la mÃ©thode rÃ©cupÃ¨re la chaÃ®ne de caractÃ¨res envoyÃ©e par l'utilisateur (lorsque
      * ce dernier clique sur 'Submit your string...' et retourne une page avec quelques commentaires et la
-     * chaîne de caractères envoyée par l'utilisateur. De plus, il indique la méthode HTTP utilisée.
+     * chaÃ®ne de caractÃ¨res envoyÃ©e par l'utilisateur. De plus, il indique la mÃ©thode HTTP utilisÃ©e.
      * 
-     * @param req   La requête HTTP du client.
-     * @param resp  La réponse du serveur.
+     * @param req   La requÃªte HTTP du client.
+     * @param resp  La rÃ©ponse du serveur.
      * 
      * @see HTTPMethod
      * 
@@ -81,13 +81,13 @@ public class SimpleHTTPServer extends HttpServlet {
         switch (meth) {
             case GET:
                 serverResponse +=
-                req.getParameter("userStringGet"); // C'est ici qu'on récupère la chaîne de
-                                                   // caractères envoyée par le client.
+                req.getParameter("userStringGet"); // C'est ici qu'on rÃ©cupÃ¨re la chaÃ®ne de
+                                                   // caractÃ¨res envoyÃ©e par le client.
                 break;
             case POST:
                         serverResponse +=
-                        req.getParameter("userStringPost"); // C'est ici qu'on récupère la chaîne de
-                                                            // caractères envoyée par le client.
+                        req.getParameter("userStringPost"); // C'est ici qu'on rÃ©cupÃ¨re la chaÃ®ne de
+                                                            // caractÃ¨res envoyÃ©e par le client.
                 break;
             default:
                 assert false : "HTTP method not supported.";
@@ -96,10 +96,10 @@ public class SimpleHTTPServer extends HttpServlet {
         
         serverResponse         +=
         "<p>It comes from a "  +
-        meth.toString()        + // On affiche la méthode HTTP utilisée...
+        meth.toString()        + // On affiche la mÃ©thode HTTP utilisÃ©e...
         " method.</p>";
         
-        resp.getWriter().println(serverResponse); // C'est ici qu'on envoie la réponse du serveur.
+        resp.getWriter().println(serverResponse); // C'est ici qu'on envoie la rÃ©ponse du serveur.
     }
 
 
@@ -108,7 +108,7 @@ public class SimpleHTTPServer extends HttpServlet {
 /// ====================================================================================================================
 
     /************************************************************************************************************
-     * Méthodes HTTP.
+     * MÃ©thodes HTTP.
      *
      * @see SimpleHTTPServer#manageClientRequest
      * 
@@ -126,6 +126,6 @@ public class SimpleHTTPServer extends HttpServlet {
       }
     
     private static final long serialVersionUID = 1L; // Cet attribut n'est pas utile pour nous car nous ne
-                                                     // sérialisons rien. Je l'ai ajouté parce que Eclipse
+                                                     // sÃ©rialisons rien. Je l'ai ajoutÃ© parce que Eclipse
                                                      // me gossait avec un warning... Donc, ne pas s'en occuper.
 }

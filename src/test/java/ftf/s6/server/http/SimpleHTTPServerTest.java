@@ -1,25 +1,25 @@
 /**************************************************************************************************************
- * Tests unitaires pour la classe SimpleHTTPServer. La version de Mockito utilisée ici peut être téléchargée 
+ * Tests unitaires pour la classe SimpleHTTPServer. La version de Mockito utilisÃ©e ici peut Ãªtre tÃ©lÃ©chargÃ©e 
  * via ce lien:
  * 
  *            http://www.java2s.com/Code/Jar/m/Downloadmockitoall19120110911sourcesjar.htm
  * 
- * en attandant que notre processus de tests soit complètement intégré à Maven.
+ * en attandant que notre processus de tests soit complÃ¨tement intÃ©grÃ© Ã  Maven.
  * 
- * @author  Éric Poirier
+ * @author  Ã‰ric Poirier
  * @date    26 mai 2018
  * @version 1.0
  * 
  *************************************************************************************************************/
 
 // Packages:
-package ftf.s6.test.serveur.http;
+package ftf.s6.server.http;
 
 // Imports statiques:
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-// Imports généraux:
+// Imports gÃ©nÃ©raux:
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -29,36 +29,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import ftf.s6.server.http.SimpleHTTPServer;
 
 
 /***********************************************************************************************************************
- * Classe de test permettant de tester les fonstionalités de la classe 'SimpleHTTPServer'.
+ * Classe de test permettant de tester les fonstionalitÃ©s de la classe 'SimpleHTTPServer'.
  *
  * @see ftf.s6.server.http.SimpleHTTPServer
  *
  **********************************************************************************************************************/
 class SimpleHTTPServerTest {
+	
+	/// ====================================================================================================================
+	/// ------------------------------------------------------- DATA -------------------------------------------------------
+	/// ====================================================================================================================
+	@Mock
+	SimpleHTTPServer    m_servlet;     // Le servlet de test.
+	@Mock
+	HttpServletRequest  m_request;     // Un mock d'une requÃªte.
+	@Mock
+	HttpServletResponse m_response;    // Un mock d'une rÃ©ponse.
 
 /// ====================================================================================================================
 /// ----------------------------------------------------- METHODS ------------------------------------------------------
 /// ====================================================================================================================
 
     /*******************************************************************************************************************
-     * Cette méthode est AUTOMATIQUEMENT appelée avant chaque test pour faire la mise sur pied du contexte de test.
+     * Cette mÃ©thode est AUTOMATIQUEMENT appelÃ©e avant chaque test pour faire la mise sur pied du contexte de test.
      * Ne pas appeler directement.
      *
      ******************************************************************************************************************/
-    @Before
-    public void setUp() {
+    @BeforeEach
+    public void setUpClasseTestServlet() throws Exception {
+    	MockitoAnnotations.initMocks(this);
+    	/*
         // Mock du servlet:
         m_servlet  = new SimpleHTTPServer();
 
-        // Mock d'une requête et d'une réponse:
+        // Mock d'une requÃªte et d'une rÃ©ponse:
         m_request  = mock(HttpServletRequest.class);
-        m_response = mock(HttpServletResponse.class);
+        m_response = mock(HttpServletResponse.class);*/
     }
 
 
@@ -68,18 +83,18 @@ class SimpleHTTPServerTest {
 
 
     /*******************************************************************************************************************
-     * Valide que si une requête valide (ex. vers une ressource qui existe) au servlet, une réponse valide est
-     * retournée.
+     * Valide que si une requÃªte valide (ex. vers une ressource qui existe) au servlet, une rÃ©ponse valide est
+     * retournÃ©e.
      *
      ******************************************************************************************************************/
     @Test
     void ServiceValidRequestImpliesValidResponse() throws IOException, ServletException {
-        // Ici, on stub une requête et une réponse. Quand on fait la requête pour la
-        // ressource "ressource", on devrait recevoir la réponse "htmlPage".
+        // Ici, on stub une requÃªte et une rÃ©ponse. Quand on fait la requÃªte pour la
+        // ressource "ressource", on devrait recevoir la rÃ©ponse "htmlPage".
         when(m_request.getParameter("ressource")).thenReturn("htmlPage");
         when(m_request.getProtocol()).thenReturn("HTTP/1.1");
 
-        // On se prépare un stream de caractères pour récupérer la réponse du servlet:
+        // On se prÃ©pare un stream de caractÃ¨res pour rÃ©cupÃ©rer la rÃ©ponse du servlet:
         StringWriter sWriter = new StringWriter();
         PrintWriter pWriter = new PrintWriter(sWriter);
         when(m_response.getWriter()).thenReturn(pWriter);
@@ -90,14 +105,14 @@ class SimpleHTTPServerTest {
             fail("Unexpected exception thrown during the test.");
         }
 
-        // On vérifie qu'on a bien reçu la réponse souhaitée:
+        // On vÃ©rifie qu'on a bien reÃ§u la rÃ©ponse souhaitÃ©e:
         assertTrue(sWriter.toString().contains("htmlPage"));
     }
 
     /*
     /*******************************************************************************************************************
-     * Valide que si une requête invalide est envoyées au servlet (ex. vers une ressource inexistante), une réponse
-     * invalide est renvoyée.
+     * Valide que si une requÃªte invalide est envoyÃ©es au servlet (ex. vers une ressource inexistante), une rÃ©ponse
+     * invalide est renvoyÃ©e.
      *
      ******************************************************************************************************************/
     @Test
@@ -107,8 +122,8 @@ class SimpleHTTPServerTest {
 
     
     /*******************************************************************************************************************
-     * Valide que si une méthode autre que les méthodes implémentées ('GET' et 'POST' pour l'instant) sont invoquées,
-     * une exception est lancée.
+     * Valide que si une mÃ©thode autre que les mÃ©thodes implÃ©mentÃ©es ('GET' et 'POST' pour l'instant) sont invoquÃ©es,
+     * une exception est lancÃ©e.
      *
      ******************************************************************************************************************/
     @Test
@@ -116,12 +131,6 @@ class SimpleHTTPServerTest {
         fail("Not yet implemented");
     }
 
-/// ====================================================================================================================
-/// ------------------------------------------------------- DATA -------------------------------------------------------
-/// ====================================================================================================================
 
-    private SimpleHTTPServer    m_servlet;     // Le servlet de test.
-    private HttpServletRequest  m_request;     // Un mock d'une requête.
-    private HttpServletResponse m_response;    // Un mock d'une réponse.
     
 }
