@@ -258,4 +258,8 @@ venv.bak/
 ### Servers ###
 src/Servers/
 
+### Other ###
+Webcontent
+
+
 # End of https://www.gitignore.io/api/java,python,eclipse,java-web,intellij
