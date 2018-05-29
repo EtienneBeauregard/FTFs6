@@ -7,14 +7,15 @@
  * 
  *************************************************************************************************************/
 
-package ftf.s6.server.http;                    // Package custom pour ftf.
+// Packages:
+package ftf.s6.server.http;
 
-import java.io.IOException;                    // Permet de gérer des exceptions de I/O.
-
+// Imports généraux:
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;  // Permet de gérer une requête client (ce qui est reçu par le serveur).
-import javax.servlet.http.HttpServletResponse; // Permet de gérer une réponse serveur (ce qui sort du serveur).
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**************************************************************************************************************

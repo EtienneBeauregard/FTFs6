@@ -1,10 +1,7 @@
 /**************************************************************************************************************
- * Tests unitaires pour la classe SimpleHTTPServer. La version de Mockito utilisée ici peut être téléchargée 
- * via ce lien:
- * 
- *            http://www.java2s.com/Code/Jar/m/Downloadmockitoall19120110911sourcesjar.htm
- * 
- * en attandant que notre processus de tests soit complètement intégré à Maven.
+ * Tests unitaires pour la classe SimpleHTTPServer. Pour l'instant, seuls les méthodes GET et POST sont
+ * testées puisque seules ces deux méthodes ont été implémentées. D'autres tests devraient être ajouté
+ * si le nombre de méthode HTTP supportées augmente.
  * 
  * @author  Éric Poirier
  * @date    26 mai 2018
@@ -20,21 +17,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 // Imports généraux:
+import ftf.s6.server.http.SimpleHTTPServer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import ftf.s6.server.http.SimpleHTTPServer;
 
 
 /***********************************************************************************************************************
@@ -44,16 +37,13 @@ import ftf.s6.server.http.SimpleHTTPServer;
  *
  **********************************************************************************************************************/
 class SimpleHTTPServerTest {
-	
-	/// ====================================================================================================================
-	/// ------------------------------------------------------- DATA -------------------------------------------------------
-	/// ====================================================================================================================
-	@Mock
-	SimpleHTTPServer    m_servlet;     // Le servlet de test.
-	@Mock
-	HttpServletRequest  m_request;     // Un mock d'une requête.
-	@Mock
-	HttpServletResponse m_response;    // Un mock d'une réponse.
+    
+    /// =================================================================================================================
+    /// -------------------------------------------------- DATA ---------------------------------------------------------
+    /// =================================================================================================================
+    SimpleHTTPServer          m_servlet;     // Le servlet de test.
+    @Mock HttpServletRequest  m_request;     // Un mock d'une requête.
+    @Mock HttpServletResponse m_response;    // Un mock d'une réponse.
 
 /// ====================================================================================================================
 /// ----------------------------------------------------- METHODS ------------------------------------------------------
@@ -66,71 +56,81 @@ class SimpleHTTPServerTest {
      ******************************************************************************************************************/
     @BeforeEach
     public void setUpClasseTestServlet() throws Exception {
-    	MockitoAnnotations.initMocks(this);
-    	/*
-        // Mock du servlet:
-        m_servlet  = new SimpleHTTPServer();
+        // On initialise tous les mocks (important!):
+        MockitoAnnotations.initMocks(this);
 
-        // Mock d'une requête et d'une réponse:
-        m_request  = mock(HttpServletRequest.class);
-        m_response = mock(HttpServletResponse.class);*/
+        // On initialise également notre servlet:
+        m_servlet = new SimpleHTTPServer();
     }
 
 
 /// ====================================================================================================================
-/// ----------------------------------------------------- TESTS --------------------------------------------------------
+/// ------------------------------------------------------- TESTS ------------------------------------------------------
 /// ====================================================================================================================
 
 
     /*******************************************************************************************************************
-     * Valide que si une requête valide (ex. vers une ressource qui existe) au servlet, une réponse valide est
-     * retournée.
+     * Valide le bon fonctionnement d'un appel à GET.
      *
      ******************************************************************************************************************/
     @Test
-    void ServiceValidRequestImpliesValidResponse() throws IOException, ServletException {
-        // Ici, on stub une requête et une réponse. Quand on fait la requête pour la
-        // ressource "ressource", on devrait recevoir la réponse "htmlPage".
-        when(m_request.getParameter("ressource")).thenReturn("htmlPage");
-        when(m_request.getProtocol()).thenReturn("HTTP/1.1");
+    void GETValidRequestImpliesValidResponse() throws IOException, ServletException {
+        // Ici on prépare les réponses de notre mock de requête. On doit faire ceci étant donné que ce n'est
+        // pas une véritable requête:
+        when(m_request.getParameter("userStringGet")).thenReturn("Some string");
+        when(m_request.getMethod()).thenReturn("GET");
 
         // On se prépare un stream de caractères pour récupérer la réponse du servlet:
         StringWriter sWriter = new StringWriter();
         PrintWriter pWriter = new PrintWriter(sWriter);
         when(m_response.getWriter()).thenReturn(pWriter);
 
+        // On test notre fonctionalité via la méthode 'service' puisqu'elle est publique, et que c'est elle
+        // qui est appelé en réalité:
         try {
             m_servlet.service(m_request, m_response);
         } catch (ServletException exception) {
+            // Si ça passe ici: très louche...
             fail("Unexpected exception thrown during the test.");
         }
 
         // On vérifie qu'on a bien reçu la réponse souhaitée:
-        assertTrue(sWriter.toString().contains("htmlPage"));
+        assertTrue(sWriter.toString().contains("<p>From your favorite HTTP server...</p>" + 
+                                               "<p>This is the string I got from you: "   +
+                                               "Some string"                              +
+                                               "<p>It comes from a GET method.</p>"));
     }
 
-    /*
+
     /*******************************************************************************************************************
-     * Valide que si une requête invalide est envoyées au servlet (ex. vers une ressource inexistante), une réponse
-     * invalide est renvoyée.
+     * Valide le bon fonctionnement d'un appel à POST.
      *
      ******************************************************************************************************************/
     @Test
-    void ServiceInvalidRequestImpliesInvalidResponse() {
-        fail("Not yet implemented");
+    void POSTValidRequestImpliesValidResponse() throws IOException, ServletException {
+        // Ici on prépare les réponses de notre mock de requête. On doit faire ceci étant donné que ce n'est
+        // pas une véritable requête:
+        when(m_request.getParameter("userStringPost")).thenReturn("Some string");
+        when(m_request.getMethod()).thenReturn("POST");
+
+        // On se prépare un stream de caractères pour récupérer la réponse du servlet:
+        StringWriter sWriter = new StringWriter();
+        PrintWriter pWriter = new PrintWriter(sWriter);
+        when(m_response.getWriter()).thenReturn(pWriter);
+
+        // On test notre fonctionalité via la méthode 'service' puisqu'elle est publique, et que c'est elle
+        // qui est appelé en réalité:
+        try {
+            m_servlet.service(m_request, m_response);
+        } catch (ServletException exception) {
+            // Si ça passe ici: très louche...
+            fail("Unexpected exception thrown during the test.");
+        }
+
+        // On vérifie qu'on a bien reçu la réponse souhaitée:
+        assertTrue(sWriter.toString().contains("<p>From your favorite HTTP server...</p>" + 
+                                               "<p>This is the string I got from you: "   +
+                                               "Some string"                              +
+                                               "<p>It comes from a POST method.</p>"));
     }
-
-    
-    /*******************************************************************************************************************
-     * Valide que si une méthode autre que les méthodes implémentées ('GET' et 'POST' pour l'instant) sont invoquées,
-     * une exception est lancée.
-     *
-     ******************************************************************************************************************/
-    @Test
-    void UnavailableHTTPMethodThrowsException() {
-        fail("Not yet implemented");
-    }
-
-
-    
 }
