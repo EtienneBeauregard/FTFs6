@@ -10,14 +10,14 @@
  *************************************************************************************************************/
 
 // Packages:
-package ftf.s6.server.http;
+package ftf.s6projet.server.http;
 
 // Imports statiques:
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 // Imports généraux:
-import ftf.s6.server.http.SimpleHTTPServer;
+import ftf.s6projet.server.http.SimpleHTTPServer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;

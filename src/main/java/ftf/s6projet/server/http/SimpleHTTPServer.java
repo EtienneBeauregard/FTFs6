@@ -8,7 +8,7 @@
  *************************************************************************************************************/
 
 // Packages:
-package ftf.s6.server.http;
+package ftf.s6projet.server.http;
 
 // Imports généraux:
 import java.io.IOException;

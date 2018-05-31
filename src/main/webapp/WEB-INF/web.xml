@@ -4,7 +4,7 @@
 <!-- Configuration du servlet: -->
   <servlet>
     <servlet-name>simplehttpservlet</servlet-name>
-    <servlet-class>ftf.s6.server.http.SimpleHTTPServer</servlet-class>
+    <servlet-class>ftf.s6projet.server.http.SimpleHTTPServer</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>simplehttpservlet</servlet-name>
