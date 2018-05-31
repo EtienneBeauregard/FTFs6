@@ -1,14 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>ftf</groupId>
     <artifactId>s6projet</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>s6projet</name>
-
     <build>
         <finalName>s6projet</finalName>
         <plugins>
@@ -28,16 +25,18 @@
 				<version>2.21.0</version>
 				<executions>
 					<execution>
-						<id>integration-test</id>
+						<id>integration-tests</id>
 						<goals>
 							<goal>integration-test</goal>
-						</goals>
-					</execution>
-					<execution>
-					<id>verify</id>
-						<goals>
 							<goal>verify</goal>
 						</goals>
+						<configuration>
+							<!--
+								Skips integration tests if the value of skip.integration.tests
+								property is true
+							-->
+							<skipTests>${skip.integration.tests}</skipTests>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -57,11 +56,18 @@
                         <version>${junit.jupiter.version}</version>
                     </dependency>
                 </dependencies>
+				<configuration>
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run -->
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+						<exclude>**/IT/**.java</exclude>
+					</excludes>
+				</configuration>
             </plugin>
-			
         </plugins>
     </build>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -73,7 +79,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -153,6 +158,12 @@
 			<artifactId>mockito-core</artifactId>
 			<version>2.11.0</version>
 			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
 		</dependency>
     </dependencies>
     <properties>
