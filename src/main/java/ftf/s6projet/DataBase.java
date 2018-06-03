@@ -51,7 +51,7 @@ public class DataBase {
      * @return
      * 
      ******************************************************************************************/
-    public StudentResource getSudent(String p_cip) {
+    public StudentResource getStudent(String p_cip) {
         
         StudentResource resource = null;
         
@@ -71,7 +71,7 @@ public class DataBase {
      * @return
      * 
      ******************************************************************************************/
-    public ArrayList<StudentResource> getSudents() {
+    public ArrayList<StudentResource> getStudents() {
         return m_students;
     }
 
@@ -91,13 +91,12 @@ public class DataBase {
     /******************************************************************************************
      * 
      * 
-     * @param p_name
      * @param p_cip
      * 
      ******************************************************************************************/
-    public void removeStudent(String p_name, String p_cip) {
+    public void removeStudent(String p_cip) {
         int index = 0;
-        StudentResource resource = new StudentResource(p_name, p_cip);
+        StudentResource resource = getStudent(p_cip);
         
         for(StudentResource student : m_students) {
             if(student.equals(resource)) {
