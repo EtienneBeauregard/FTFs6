@@ -27,16 +27,6 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/webapi/*</url-pattern>
     </servlet-mapping>
-
-<!-- Configuration du servlet: -->
-  <servlet>
-    <servlet-name>simplehttpservlet</servlet-name>
-    <servlet-class>ftf.s6projet.server.http.SimpleHTTPServer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>simplehttpservlet</servlet-name>
-    <url-pattern>/SimpleHTTPServer</url-pattern>
-  </servlet-mapping>
   
 <!-- Configuration des ressources: -->
   <display-name>HTTPServer</display-name>

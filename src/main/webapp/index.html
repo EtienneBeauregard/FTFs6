@@ -17,14 +17,14 @@
         l'URI de la ressource): </p>
       
         <ul>
-          <li>students</li>
+          <li><pre>students</pre></li>
         </ul>
 
         <p> Chaque étudiant possède un nom et un CIP. Chaque ressource représentant un étudiant est disponible
         via l'URI </p>
         
         <ul>
-          <li>students/{cip}</li>
+          <li><pre>students/{cip}</pre></li>
         </ul>
         
         <p> Voici maintenant une liste de requêtes que vois pouvez effectuer pour tester le système. Vous pouvez
@@ -35,11 +35,11 @@
     
       <p>Pour avoir une liste complète de tous les étudiants disponibles dans la base de données:</p>
         <ul>
-          <li>students</li>
+          <li><pre>students</pre></li>
         </ul>
       <p>Pour un étudiant seul, disons François avec le CIP pouf1903:</p>
         <ul>
-          <li>students/pouf1903</li>
+          <li><pre>students/pouf1903</pre></li>
         </ul>
 
 
@@ -50,7 +50,7 @@
          la requête, on ajoute les informations de Marcel en JSON: <em>{ "cip": "gmar2104", 
          "name": "Marcel" }</em>. On envoie ça à l'URI:</p>
         <ul>
-          <li>students</li>
+          <li><pre>students</pre></li>
         </ul>
 
         <p>Vous pouvez visualiser le résultat avec un GET.</p>
@@ -63,7 +63,7 @@
          Dans le corps de la requête, on ajoute les informations à jour (même CIP, nouveau nom)
          au format JSON: <em>{ "cip": "poie2104", "name": "Rolland" }</em>. On envoie ça à l'URI:</p>
         <ul>
-          <li>students</li>
+          <li><pre>students</pre></li>
         </ul>
 
       <p>Vous pouvez visualiser le résultat avec un GET.</p>
@@ -74,7 +74,7 @@
       <p>Modifions le nom de l'étudiant Éric, avec le CIP poie2104. Pour ce faire, il suffit
          d'appeler DELETE sur l'URI:</p>
         <ul>
-          <li>students/poie2104</li>
+          <li><pre>students/poie2104</pre></li>
         </ul>
 
         <p>Vous pouvez visualiser le résultat avec un GET.</p>
