@@ -11,15 +11,30 @@
 package ftf.s6projet.services.release0;
 
 // Imports généraux:
-import org.json.*;
+import org.json.JSONObject;
 import java.io.*;
 
 public class PersistanceLayer {
-    public String getPassword(String p_name){
-        File file = new File("D:\\ProjetS6\\FTFS6\\release0.json");
-        String password = "";
-        
-        return password;
+    public String getPassword(String cip){
+        String fileContent = readFile("D:\\ProjetS6\\FTFS6\\release0.json");
+        JSONObject jsonFileObject = new JSONObject(fileContent);
+        return jsonFileObject.getJSONObject(cip).get("password").toString();
     }
-    
+
+    public static String readFile(String filename) {
+        String result = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            while(line != null) {
+                sb.append(line);
+                line = br.readLine();
+            }
+            result = sb.toString();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

@@ -1,42 +1,42 @@
 {
     "labv1234":{
-        "prenom":   "Vincent",
-        "nom":      "Labbé",
-        "password": "1234"
+        "fname":   "Vincent",
+        "lname":   "Labbé",
+        "password":"1234"
     },
     "beae1234":{
-        "prenom":   "Etienne",
-        "nom":      "Beauregard",
-        "password": "1234"
+        "fname":   "Etienne",
+        "lname":   "Beauregard",
+        "password":"1234"
     },
     "poie1234":{
-        "prenom":   "Éric",
-        "nom":      "Poirier",
-        "password": "1234"
+        "fname":   "Éric",
+        "lname":   "Poirier",
+        "password":"1234"
     },
     "pouf1234":{
-        "prenom":   "François",
-        "nom":      "Poulin",
-        "password": "1234"
+        "fname":   "François",
+        "lname":   "Poulin",
+        "password":"1234"
     },
     "vals1234":{
-        "prenom":   "Simon",
-        "nom":      "Vallière",
-        "password": "1234"
+        "fname":   "Simon",
+        "lname":   "Vallière",
+        "password":"1234"
     },
     "kalk1234":{
-        "prenom":   "Karan",
-        "nom":      "Kalsi",
-        "password": "1234"
+        "fname":   "Karan",
+        "lname":   "Kalsi",
+        "password":"1234"
     },
     "schl1234":{
-        "prenom":   "Louis",
-        "nom":      "Schuck",
-        "password": "1234"
+        "fname":   "Louis",
+        "lname":   "Schuck",
+        "password":"1234"
     },
     "perv1234":{
-        "prenom":   "Vincent",
-        "nom":      "Persad",
-        "password": "1234"
+        "fname":   "Vincent",
+        "lname":   "Persad",
+        "password":"1234"
     }
 }
