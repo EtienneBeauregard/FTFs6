@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-	<servlet>
+<!-- Nécessaire pour pouvoir appeler POST, PUT ou DELETE -->
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Microservice de test</web-resource-name>
+        <url-pattern>/*</url-pattern>
+        <http-method>GET</http-method>
+        <http-method>POST</http-method>
+        <http-method>PUT</http-method>
+        <http-method>DELETE</http-method>
+    </web-resource-collection>
+</security-constraint>
+
+<!-- Configuration du servlet propre à Jersey: -->
+    <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -14,16 +27,6 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/webapi/*</url-pattern>
     </servlet-mapping>
-    
-<!-- Configuration du servlet: -->
-  <servlet>
-    <servlet-name>simplehttpservlet</servlet-name>
-    <servlet-class>ftf.s6projet.server.http.SimpleHTTPServer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>simplehttpservlet</servlet-name>
-    <url-pattern>/SimpleHTTPServer</url-pattern>
-  </servlet-mapping>
   
 <!-- Configuration des ressources: -->
   <display-name>HTTPServer</display-name>

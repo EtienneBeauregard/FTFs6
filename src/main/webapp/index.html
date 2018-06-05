@@ -9,33 +9,75 @@
     
     <body>
 
-      <h1>
-      Simple HTTP server
-      </h1>
+      <h1> Mircro service de test avec API REST simple. </h1>
     
-      <!-- GET -->
+        <p> Ce microservice de test peut être utilisé pour tester les fonctionalités de base d'un API
+        REST. Quatre méthodes Http ont été implantés: GET, POST, PUT et DELETE. L'API se compose d'une
+        collection de ressources <em>Student</em> accessible via l'URI (inclure votre chemin local avant)
+        l'URI de la ressource): </p>
+      
+        <ul>
+          <li><pre>students</pre></li>
+        </ul>
+
+        <p> Chaque étudiant possède un nom et un CIP. Chaque ressource représentant un étudiant est disponible
+        via l'URI </p>
+        
+        <ul>
+          <li><pre>students/{cip}</pre></li>
+        </ul>
+        
+        <p> Voici maintenant une liste de requêtes que vois pouvez effectuer pour tester le système. Vous pouvez
+            utiliser un outil comme Postman (Chrome) ou RESTClient (Firefox) pour ce faire. </p>
+
+
+    <h2>Inspecter les étudiants avec GET</h2>
     
-      <p>
-        <b>Usage:</b> enter a string of text and press "Submit". If the operation is successful, the server 
-        should return the string you submitted. This is done via 'GET'.
-      </p>
-      
-        <form action=SimpleHTTPServer method="get">
-            <p> String: <input type="text" name="userStringGet"> </p>
-            <p> <input type="submit" value="Submit your string" name="submitButtonGet"> </p>
-        </form>
+      <p>Pour avoir une liste complète de tous les étudiants disponibles dans la base de données:</p>
+        <ul>
+          <li><pre>students</pre></li>
+        </ul>
+      <p>Pour un étudiant seul, disons François avec le CIP pouf1903:</p>
+        <ul>
+          <li><pre>students/pouf1903</pre></li>
+        </ul>
 
-      <!-- POST -->
 
-      <p>
-        <b>Usage:</b> enter a string of text and press "Submit". If the operation is successful, the server 
-        should return the string you submitted. This is done via 'POST' (No shit!).
-      </p>
-      
-        <form action=SimpleHTTPServer method="post">
-            <p> String: <input type="text" name="userStringPost"> </p>
-            <p> <input type="submit" value="Submit your string" name="submitButtonPost"> </p>
-        </form>
+    <h2>Ajouter des étudiants avec POST</h2>
+
+      <p>Ajoutons un étudiant nommé Marcel avec le CIP gmar2104. D'abord, dans l'en-tête il faut
+         spéficier le type de contenu: <em>Content-Type : application/json</em>. Dans le corps de
+         la requête, on ajoute les informations de Marcel en JSON: <em>{ "cip": "gmar2104", 
+         "name": "Marcel" }</em>. On envoie ça à l'URI:</p>
+        <ul>
+          <li><pre>students</pre></li>
+        </ul>
+
+        <p>Vous pouvez visualiser le résultat avec un GET.</p>
+
+
+    <h2>Modifier le nom des étudiants avec PUT</h2>
+
+      <p>Modifions le nom de l'étudiant Éric, avec le CIP poie2104, pour Rolland. D'abord, dans
+         l'en-tête il faut spéficier le type de contenu: <em>Content-Type : application/json</em>.
+         Dans le corps de la requête, on ajoute les informations à jour (même CIP, nouveau nom)
+         au format JSON: <em>{ "cip": "poie2104", "name": "Rolland" }</em>. On envoie ça à l'URI:</p>
+        <ul>
+          <li><pre>students</pre></li>
+        </ul>
+
+      <p>Vous pouvez visualiser le résultat avec un GET.</p>
+
+
+    <h2>Supprimer des étudiants avec DELETE</h2>
+
+      <p>Modifions le nom de l'étudiant Éric, avec le CIP poie2104. Pour ce faire, il suffit
+         d'appeler DELETE sur l'URI:</p>
+        <ul>
+          <li><pre>students/poie2104</pre></li>
+        </ul>
+
+        <p>Vous pouvez visualiser le résultat avec un GET.</p>
 
     </body>
 
