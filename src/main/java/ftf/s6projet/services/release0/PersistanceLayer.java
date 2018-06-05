@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PersistanceLayer {
 
@@ -40,14 +41,10 @@ public class PersistanceLayer {
         JSONObject jsonFileObject = new JSONObject(fileContent);
         Iterator<String> keyIterator = jsonFileObject.keys();
 
-        for () {
-            JSONObject currentJsonObject = new JSONObject();
-            al.add(0, [
-                jsonBDArray.getJSONObject(i).keys().,
-                ,
-                ,
-                ,
-            ]);
+        if (keyIterator != null) {
+            do{
+                keyIterator.toString()
+            } while(keyIterator.hasNext());
         }
         return null;
     }
