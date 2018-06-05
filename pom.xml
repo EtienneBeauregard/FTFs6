@@ -1,45 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>ftf</groupId>
-    <artifactId>s6projet</artifactId>
-    <packaging>war</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>s6projet</name>
-    <build>
-        <finalName>s6projet</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ftf</groupId>
+	<artifactId>s6projet</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>s6projet</name>
+	<build>
+		<finalName>s6projet</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<inherited>true</inherited>
+				<configuration>
+				    <source>1.8</source>
+				    <target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>2.19.1</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.junit.platform</groupId>
-			            <artifactId>junit-platform-surefire-provider</artifactId>
-			            <version>${junit.platform.version}</version>
-			         </dependency>
-			          <dependency>
-			            <groupId>org.junit.jupiter</groupId>
-			            <artifactId>junit-jupiter-engine</artifactId>
-			            <version>${junit.jupiter.version}</version>
-			          </dependency>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>${junit.platform.version}</version>
+					</dependency>
+						<dependency>
+							<groupId>org.junit.jupiter</groupId>
+							<artifactId>junit-jupiter-engine</artifactId>
+							<version>${junit.jupiter.version}</version>
+						</dependency>
 				</dependencies>
 				 <configuration>
-		            <includes> 
-		            	<include>**/*IT.java</include>
-		            </includes>
-		        </configuration>
+					<includes> 
+						<include>**/*IT.java</include>
+					</includes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>integration-tests</id>
@@ -50,63 +50,62 @@
 					</execution>
 				</executions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit.platform.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>${junit.jupiter.version}</version>
-                    </dependency>
-                </dependencies>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.junit.platform</groupId>
+						<artifactId>junit-platform-surefire-provider</artifactId>
+						<version>${junit.platform.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.junit.jupiter</groupId>
+						<artifactId>junit-jupiter-engine</artifactId>
+						<version>${junit.jupiter.version}</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<includes>
-			            <include>**/*Tests.java</include>
-			            <include>**/*Test.java</include>
-			          </includes>
-			          <excludes>
-			            <exclude>**/Abstract*.java</exclude>
-			            <exclude>**/IT*.java</exclude>
-			            <exclude>**/*IT.java</exclude>
-			            <exclude>**/*ITCase.java</exclude>
-			            <exclude>**/*IntegrationTest.java</exclude>
-			          </excludes>
+						<include>**/*Tests.java</include>
+						<include>**/*Test.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+						<exclude>**/IT*.java</exclude>
+						<exclude>**/*IT.java</exclude>
+						<exclude>**/*ITCase.java</exclude>
+						<exclude>**/*IntegrationTest.java</exclude>
+					</excludes>
 				</configuration>
-            </plugin>
-            
-        </plugins>
-    </build>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.glassfish.jersey</groupId>
-                <artifactId>jersey-bom</artifactId>
-                <version>${jersey.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-binding</artifactId>
-        </dependency>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>${jersey.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-binding</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -182,18 +181,18 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-		    <groupId>org.postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>42.2.2</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.2</version>
 		</dependency>
-    </dependencies>
-    <properties>
-        <jersey.version>2.27</jersey.version>
-        <jdk.version>1.8</jdk.version>
-        <junit.jupiter.version>5.1.0</junit.jupiter.version>
-        <junit.platform.version>1.0.3</junit.platform.version>
-        <junit.vintage.version>5.1.0</junit.vintage.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</dependencies>
+	<properties>
+		<jersey.version>2.27</jersey.version>
+		<jdk.version>1.8</jdk.version>
+		<junit.jupiter.version>5.1.0</junit.jupiter.version>
+		<junit.platform.version>1.0.3</junit.platform.version>
+		<junit.vintage.version>5.1.0</junit.vintage.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 </project>
