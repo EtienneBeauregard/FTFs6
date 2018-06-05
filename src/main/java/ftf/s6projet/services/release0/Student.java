@@ -1,4 +1,4 @@
-package ftf.s6projet;
+package ftf.s6projet.services.release0;
 import java.net.URI;
 
 import javax.xml.bind.annotation.XmlRootElement;
