@@ -1,19 +1,44 @@
 package ftf.s6projet.services.release0;
 
 import java.util.ArrayList;
-
+/**********************************************************************************************
+ * 
+ * 
+ * @author Vincent Labbé
+ * @date   Juin 2018
+ *
+ **********************************************************************************************/
 public class ServiceAuthentification {
-
+	
+    /********************************************************************************************
+     * Constructeur.
+     * 
+     * 
+     ********************************************************************************************/
+	
+    public ServiceAuthentification() {
+        // TODO Auto-generated constructor stub
+    }
+    
+    /********************************************************************************************
+     * 
+     * 
+     * @return ArrayList<Student>
+     * 
+     ********************************************************************************************/
 public ArrayList<Student> getStudentsInfo() {
         
-	    //Student s1 = new Student("karan", "kalk2701", "password");
-	    //Student s2 = new Student("bob", "kalk2501", "password");
+	   /* Student s1 = new Student("karan", "kalk2701", "password");
+	    Student s2 = new Student("bob", "kalk2501", "password");
 	    
-	    ///ArrayList<Student> list = new ArrayList<Student>();
+	    ArrayList<Student> list = new ArrayList<Student>();
 	    
-	    //list.add(s1);
-	    //list.add(s2);
-		ArrayList<Student> listStudent = getAllUser(); //Francois me retorune un array list de student
+	    list.add(s1);
+	    list.add(s2);
+	    return list; */
+		PersistanceLayer persistance = new PersistanceLayer();
+		
+		ArrayList<Student> listStudent = persistance.getAllUsers(); //Francois me retorune un array list de student
 		
 		if(listStudent.size()==0) {
 			Student error = new Student("Error", "Error", "Error");
@@ -21,24 +46,39 @@ public ArrayList<Student> getStudentsInfo() {
 		}
 		return listStudent;
     }
-	
+
+/********************************************************************************************
+ * 
+ * @param String CIP
+ * @return Student student
+ * 
+ ********************************************************************************************/
 	public Student getStudentInfo(String CIP) {
-        
-		String[] studentArray = getUser(CIP);
+		PersistanceLayer persistance = new PersistanceLayer();
 		
-		if(studentArray[0] != null) {
+		Student student = persistance.getUser(new Student("",CIP,""));
+		
+		return student;
+		/*if(studentArray[0] != null) {
 		    Student s1 = new Student(CIP, studentArray[1], studentArray[3]);
 			return s1;
 		}
 		else {
 			Student error = new Student("Error", "Error", "Error");
 			return error;
-		}
+		}*/
     }
-
+	
+	/********************************************************************************************
+	 * 
+	 * @param Student student
+	 * @return Student
+	 * 
+	 ********************************************************************************************/
 	public Student updateUser(Student student) {
 		
-		boolean message_retour = putUser(student.getCip(), student.getName(),"LASTNAME", student.getPassword());
+		PersistanceLayer persistance = new PersistanceLayer();
+		boolean message_retour = persistance.putUser(student);
 		
 		if(message_retour == true){
 			return student;
@@ -49,9 +89,16 @@ public ArrayList<Student> getStudentsInfo() {
 	    }
     }
 	
+	/********************************************************************************************
+	 * 
+	 * @param Student student
+	 * @return Student
+	 * 
+	 ********************************************************************************************/
 	public Student createNewUser(Student student) {
 		
-		boolean message_retour = postUser(student.getCip(), student.getName(),"LASTNAME", student.getPassword());
+		PersistanceLayer persistance = new PersistanceLayer();
+		boolean message_retour = persistance.postUser(student);
 		
 		Student newStudent = getStudentInfo(student.getCip());
 		
@@ -64,10 +111,18 @@ public ArrayList<Student> getStudentsInfo() {
 	    }
     }
 	
+	/********************************************************************************************
+	 * 
+	 * @param String CIP
+	 * @return String
+	 * 
+	 ********************************************************************************************/
 	public String removeStudentInfo(String CIP) {
-        
-		boolean message_retour = deleteUser(CIP);
-		if(message_retour = true) {
+		
+		PersistanceLayer persistance = new PersistanceLayer();
+		
+		boolean message_retour = persistance.delUser(new Student("",CIP,""));
+		if(message_retour == true) {
 			return "Delete student info "+ CIP;
 		}
 		else {
