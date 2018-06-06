@@ -38,7 +38,7 @@ public ArrayList<Student> getStudentsInfo() {
 	    return list; */
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		ArrayList<Student> listStudent = persistance.getAllUser(); //Francois me retorune un array list de student
+		ArrayList<Student> listStudent = persistance.getAllUsers(); //Francois me retorune un array list de student
 		
 		if(listStudent.size()==0) {
 			Student error = new Student("Error", "Error", "Error");
@@ -56,7 +56,7 @@ public ArrayList<Student> getStudentsInfo() {
 	public Student getStudentInfo(String CIP) {
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		Student student = persistance.getUser(CIP);
+		Student student = persistance.getUser(new Student("",CIP,""));
 		
 		return student;
 		/*if(studentArray[0] != null) {
@@ -121,7 +121,7 @@ public ArrayList<Student> getStudentsInfo() {
 		
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		boolean message_retour = persistance.delUser(CIP);
+		boolean message_retour = persistance.delUser(new Student("",CIP,""));
 		if(message_retour == true) {
 			return "Delete student info "+ CIP;
 		}
