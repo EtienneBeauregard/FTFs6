@@ -173,5 +173,5 @@ public class PersistanceLayer {
         }
     }
 
-    private static String filePath = "\\FTFs6\\release0.json";
+    private static String filePath = "C:\\Users\\K_Kal\\OneDrive\\Documents\\Génie Informatique\\S6\\PROJET\\ExtensionProject\\FTFs6\\release0.json";
 }

@@ -29,8 +29,8 @@ public class PersistanceLayerIT {
     void setUpTests() {
         PersistanceLayer persistanceLayer = new PersistanceLayer();
         Student testStudent = new Student("test", "test1234", "1234");
-        if (persistanceLayer.getUser(testStudent) != null) {
-            persistanceLayer.delUser(testStudent);
+        if (persistanceLayer.getUser("test1234") != null) {
+            persistanceLayer.delUser("test1234");
         }
     }
 
@@ -38,8 +38,8 @@ public class PersistanceLayerIT {
     static void cleanUpTest() {
         PersistanceLayer persistanceLayer = new PersistanceLayer();
         Student testStudent = new Student("test", "test1234", "1234");
-        if (persistanceLayer.getUser(testStudent) != null) {
-            persistanceLayer.delUser(testStudent);
+        if (persistanceLayer.getUser("test1234") != null) {
+            persistanceLayer.delUser("test1234");
         }
     }
 
@@ -48,9 +48,9 @@ public class PersistanceLayerIT {
         PersistanceLayer persistanceLayer = new PersistanceLayer();
         Student testStudent = new Student("test", "test1234", "1234");
         persistanceLayer.postUser(testStudent);
-        assertEquals(persistanceLayer.getUser(testStudent).getCip(), testStudent.getCip());
-        assertEquals(persistanceLayer.getUser(testStudent).getName(), testStudent.getName());
-        assertEquals(persistanceLayer.getUser(testStudent).getPassword(), testStudent.getPassword());
+        assertEquals(persistanceLayer.getUser("test1234").getCip(), testStudent.getCip());
+        assertEquals(persistanceLayer.getUser("test1234").getName(), testStudent.getName());
+        assertEquals(persistanceLayer.getUser("test1234").getPassword(), testStudent.getPassword());
     }
     
     @Test
@@ -66,7 +66,7 @@ public class PersistanceLayerIT {
         Student testStudent = new Student("test", "test1234", "1234");
 
         persistanceLayer.postUser(testStudent);
-        Student user = persistanceLayer.getUser(testStudent);
+        Student user = persistanceLayer.getUser("test1234");
         assertEquals(user.getCip(), testStudent.getCip());
         assertEquals(user.getName(), testStudent.getName());
         assertEquals(user.getPassword(), testStudent.getPassword());
@@ -82,7 +82,7 @@ public class PersistanceLayerIT {
         testStudent.setPassword("4321");
 
         persistanceLayer.putUser(testStudent);
-        Student user = persistanceLayer.getUser(testStudent);
+        Student user = persistanceLayer.getUser("test1234");
         assertEquals(user.getCip(), testStudent.getCip());
         assertEquals(user.getName(), testStudent.getName());
         assertEquals(user.getPassword(), testStudent.getPassword());
@@ -94,7 +94,7 @@ public class PersistanceLayerIT {
         Student testStudent = new Student("test", "test1234", "1234");
 
         persistanceLayer.postUser(testStudent);
-        persistanceLayer.delUser(testStudent);
-        assertNull(persistanceLayer.getUser(testStudent)); 
+        persistanceLayer.delUser("test1234");
+        assertNull(persistanceLayer.getUser("test1234")); 
     }
 }
