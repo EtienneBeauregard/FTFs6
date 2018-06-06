@@ -31,13 +31,13 @@ public class PersistanceLayer {
      * @param p_student
      * @return Student
      ********************************************************************************************/
-    public Student getUser(Student p_student){
+    public Student getUser(String CIP){
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
-        if (jsonFileContent.has(p_student.getCip())) {
-            Student studentResult = new Student(jsonFileContent.getJSONObject(p_student.getCip()).get("fname").toString(), 
-                                                p_student.getCip(),
-                                                jsonFileContent.getJSONObject(p_student.getCip()).get("password").toString());
+        if (jsonFileContent.has(CIP)) {
+            Student studentResult = new Student(jsonFileContent.getJSONObject(CIP).get("fname").toString(), 
+            									CIP,
+                                                jsonFileContent.getJSONObject(CIP).get("password").toString());
             return studentResult;
         }    
         return null;
@@ -121,12 +121,12 @@ public class PersistanceLayer {
      * @param p_student
      * @return boolean
      ********************************************************************************************/
-    public boolean delUser(Student p_student) {
+    public boolean delUser(String CIP) {
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
         
-        if (jsonFileContent.has(p_student.getCip())) {
-            jsonFileContent.remove(p_student.getCip());
+        if (jsonFileContent.has(CIP)) {
+            jsonFileContent.remove(CIP);
             dumpJsonFile(jsonFileContent);
             return true;
         }
@@ -173,5 +173,5 @@ public class PersistanceLayer {
         }
     }
 
-    private static String filePath = "D:\\ProjetS6\\FTFS6\\release0.json";
+    private static String filePath = "\\FTFs6\\release0.json";
 }

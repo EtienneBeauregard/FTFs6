@@ -73,7 +73,8 @@ public ArrayList<Student> getStudentsInfo() {
 	public Student getStudentInfo(String CIP) {
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		Student student = persistance.getUser(new Student("null",CIP,"null"));
+		Student student = persistance.getUser(CIP);
+
 		
 		return student;
 		/*if(studentArray[0] != null) {
@@ -138,7 +139,8 @@ public ArrayList<Student> getStudentsInfo() {
 		
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		boolean message_retour = persistance.delUser(new Student("null",CIP,"null"));
+		boolean message_retour = persistance.delUser(CIP);
+
 		if(message_retour == true) {
 			return "Delete student info "+ CIP;
 		}

@@ -5,80 +5,114 @@
     <head>
         <meta charset="ISO-8859-1">
         <title>Simple HTTP server</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+    		$(document).ready(function(){
+    			jQuery.each( ["delete" ], function( i, method ) {
+    				  jQuery[ method ] = function( url, data, callback, type ) {
+    				    if ( jQuery.isFunction( data ) ) {
+    				      type = type || callback;
+    				      callback = data;
+    				      data = undefined;
+    				    }
+    				 
+    				    return jQuery.ajax({
+    				      url: url,
+    				      type: method,
+    				      dataType: type,
+    				      data: data,
+    				      success: callback
+    				    });
+    				  };
+    				});
+    			
+                $("button").click(function(){
+                    var cipVar =document.getElementById('CIPString').value;
+                    var nameVar =document.getElementById('NameString').value;
+                    var passwordVar =document.getElementById('PasswordString').value;
+                    var student=JSON.stringify({cip:cipVar,name:nameVar,password:passwordVar});
+                    switch (parseInt($( this ).attr("value"))) {
+                    case 0:
+                        $.get("webapi/students/"+cipVar, function(data, status){
+                        	alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        });
+                        break;
+                    case 1:
+                    	$.get("webapi/students", function(data, status){
+                        	alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        });
+                        break;
+                    case 2:
+                    	 $.ajax({
+                             type: "POST",
+                             url: "webapi/students",
+                             data: student,
+                             contentType: "application/json; charset=utf-8",
+                             crossDomain: true,
+                             dataType: "json",
+                             success: function (data, status, jqXHR) {
+
+                            	 alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                             },
+
+                             error: function (jqXHR, status) {
+                                 // error handler
+                                 console.log(jqXHR);
+                                 alert('fail' + status.code);
+                             }
+                          });
+                        break;
+                    case 3:
+                    	$.ajax({
+                            type: "PUT",
+                            url: "webapi/students",
+                            data: student,
+                            contentType: "application/json; charset=utf-8",
+                            crossDomain: true,
+                            dataType: "json",
+                            success: function (data, status, jqXHR) {
+
+                           	 alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                            },
+
+                            error: function (jqXHR, status) {
+                                // error handler
+                                console.log(jqXHR);
+                                alert('fail' + status.code);
+                            }
+                         });
+                        break;
+                    case 4:
+                    	jQuery.delete("webapi/students/"+cipVar, function(data, status){
+                        	alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        });
+                        break;
+                }
+                });
+            });
+    	</script>
     </head>
     
     <body>
-
-      <h1> Mircro service de test avec API REST simple. </h1>
     
-        <p> Ce microservice de test peut être utilisé pour tester les fonctionalités de base d'un API
-        REST. Quatre méthodes Http ont été implantés: GET, POST, PUT et DELETE. L'API se compose d'une
-        collection de ressources <em>Student</em> accessible via l'URI (inclure votre chemin local avant)
-        l'URI de la ressource): </p>
-      
-        <ul>
-          <li><pre>students</pre></li>
-        </ul>
-
-        <p> Chaque étudiant possède un nom et un CIP. Chaque ressource représentant un étudiant est disponible
-        via l'URI </p>
+        <h1>
+            Simple REST server
+        </h1>
         
-        <ul>
-          <li><pre>students/{cip}</pre></li>
-        </ul>
+        <p>
+            <b>Usage:</b> enter a string of text and press the button corresponding to the action desired.
+        </p>
         
-        <p> Voici maintenant une liste de requêtes que vois pouvez effectuer pour tester le système. Vous pouvez
-            utiliser un outil comme Postman (Chrome) ou RESTClient (Firefox) pour ce faire. </p>
-
-
-    <h2>Inspecter les étudiants avec GET</h2>
+        
+        <p> CIP: <input type="text" name="CIPString" id="CIPString"> </p>
+        <p> Nom: <input type="text" name="NameString" id="NameString"> </p>
+        <p> Mot de passe: <input type="password" name="PasswordString" id="PasswordString"> </p>
+        <p> <button type="button" value=0 name="ButtonGet"> GET </button></p>
+        <p> <button type="button" value=1 name="ButtonGetAll"> GET ALL </button></p>
+        <p> <button type="button" value=2 name="ButtonPost"> POST </button></p>
+        <p> <button type="button" value=3 name="ButtonPut"> PUT </button></p>
+        <p> <button type="button" value=4 name="ButtonDelete"> DELETE </button></p>
     
-      <p>Pour avoir une liste complète de tous les étudiants disponibles dans la base de données:</p>
-        <ul>
-          <li><pre>students</pre></li>
-        </ul>
-      <p>Pour un étudiant seul, disons François avec le CIP pouf1903:</p>
-        <ul>
-          <li><pre>students/pouf1903</pre></li>
-        </ul>
-
-
-    <h2>Ajouter des étudiants avec POST</h2>
-
-      <p>Ajoutons un étudiant nommé Marcel avec le CIP gmar2104. D'abord, dans l'en-tête il faut
-         spéficier le type de contenu: <em>Content-Type : application/json</em>. Dans le corps de
-         la requête, on ajoute les informations de Marcel en JSON: <em>{ "cip": "gmar2104", 
-         "name": "Marcel" }</em>. On envoie ça à l'URI:</p>
-        <ul>
-          <li><pre>students</pre></li>
-        </ul>
-
-        <p>Vous pouvez visualiser le résultat avec un GET.</p>
-
-
-    <h2>Modifier le nom des étudiants avec PUT</h2>
-
-      <p>Modifions le nom de l'étudiant Éric, avec le CIP poie2104, pour Rolland. D'abord, dans
-         l'en-tête il faut spéficier le type de contenu: <em>Content-Type : application/json</em>.
-         Dans le corps de la requête, on ajoute les informations à jour (même CIP, nouveau nom)
-         au format JSON: <em>{ "cip": "poie2104", "name": "Rolland" }</em>. On envoie ça à l'URI:</p>
-        <ul>
-          <li><pre>students</pre></li>
-        </ul>
-
-      <p>Vous pouvez visualiser le résultat avec un GET.</p>
-
-
-    <h2>Supprimer des étudiants avec DELETE</h2>
-
-      <p>Modifions le nom de l'étudiant Éric, avec le CIP poie2104. Pour ce faire, il suffit
-         d'appeler DELETE sur l'URI:</p>
-        <ul>
-          <li><pre>students/poie2104</pre></li>
-        </ul>
-
-        <p>Vous pouvez visualiser le résultat avec un GET.</p>
-
     </body>
 
 </html>
