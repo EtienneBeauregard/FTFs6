@@ -2,7 +2,7 @@
  * Classe implémentant la couche de persistance du micro service du release 0.
  * 
  * @author  Francois Poulin
- * @date    31 mai 2018
+ * @date    6 juin 2018
  * @version 1.0
  * 
  *************************************************************************************************************/
@@ -16,23 +16,37 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/********************************************************************************************
+ * Persistance layer for the release 0 service.
+ ********************************************************************************************/
 public class PersistanceLayer {
 
+    /********************************************************************************************
+     * Constructeur.
+     ********************************************************************************************/
     public PersistanceLayer() {}
 
+    /********************************************************************************************
+     * Get a specific user.
+     * @param p_student
+     * @return Student
+     ********************************************************************************************/
     public Student getUser(Student p_student){
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
-
-        if (jsonFileContent.has(p_student.m_cip)) {
-            Student studentResult = new Student(jsonFileContent.getJSONObject(p_student.m_cip).get("fname").toString(), 
-                                                p_student.m_cip,
-                                                jsonFileContent.getJSONObject(p_student.m_cip).get("password").toString());
+        if (jsonFileContent.has(p_student.getCip())) {
+            Student studentResult = new Student(jsonFileContent.getJSONObject(p_student.getCip()).get("fname").toString(), 
+                                                p_student.getCip(),
+                                                jsonFileContent.getJSONObject(p_student.getCip()).get("password").toString());
             return studentResult;
         }    
         return null;
     }
 
+    /********************************************************************************************
+     * Get all users.
+     * @return ArrayList<Student>
+     ********************************************************************************************/
     public ArrayList<Student> getAllUsers() {
         ArrayList<Student> al = new ArrayList<Student>();
         
@@ -56,55 +70,74 @@ public class PersistanceLayer {
         return null;
     }
 
+    /********************************************************************************************
+     * Create a user.
+     * @param p_student
+     * @return boolean
+     ********************************************************************************************/
     public boolean postUser(Student p_student) {
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
 
-        if (!jsonFileContent.has(p_student.m_cip)) {
+        if (!jsonFileContent.has(p_student.getCip())) {
             try {
                 JSONObject postJsonObject = new JSONObject();
-                postJsonObject.accumulate("fname", p_student.m_name);
+                postJsonObject.accumulate("fname", p_student.getName());
                 postJsonObject.accumulate("lname", "");
-                postJsonObject.accumulate("password", p_student.m_password);
-                jsonFileContent.put(p_student.m_cip, postJsonObject);
+                postJsonObject.accumulate("password", p_student.getPassword());
+                jsonFileContent.put(p_student.getCip(), postJsonObject);
                 dumpJsonFile(jsonFileContent);
                 return true;    
             } catch(Exception e) {
                 e.printStackTrace();
                 return false;
             }
-            
         }
         return false;
     }
 
+    /********************************************************************************************
+     * Update a user.
+     * @param p_student
+     * @return boolean
+     ********************************************************************************************/
     public boolean putUser(Student p_student) {
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
 
-        if (jsonFileContent.has(p_student.m_cip)) {
+        if (jsonFileContent.has(p_student.getCip())) {
             JSONObject putJsonObject = new JSONObject();
-            putJsonObject.accumulate("fname", p_student.m_name);
+            putJsonObject.accumulate("fname", p_student.getName());
             putJsonObject.accumulate("lname", "");
-            putJsonObject.accumulate("password", p_student.m_password);
-            dumpJsonFile(jsonFileContent.put(p_student.m_cip, putJsonObject));
+            putJsonObject.accumulate("password", p_student.getPassword());
+            dumpJsonFile(jsonFileContent.put(p_student.getCip(), putJsonObject));
             return true;
         }
         return false;
     }
 
+    /********************************************************************************************
+     * Delete a user.
+     * @param p_student
+     * @return boolean
+     ********************************************************************************************/
     public boolean delUser(Student p_student) {
         String fileContent = readFile(filePath);
         JSONObject jsonFileContent = new JSONObject(fileContent);
         
-        if (jsonFileContent.has(p_student.m_cip)) {
-            jsonFileContent.remove(p_student.m_cip);
+        if (jsonFileContent.has(p_student.getCip())) {
+            jsonFileContent.remove(p_student.getCip());
             dumpJsonFile(jsonFileContent);
             return true;
         }
         return false;
     }
 
+    /********************************************************************************************
+     * Read file to String.
+     * @param p_filePath
+     * @return String
+     ********************************************************************************************/
     public static String readFile(String p_filePath) {
         String result = "";
         try {
@@ -123,6 +156,11 @@ public class PersistanceLayer {
         return result;
     }
 
+    /********************************************************************************************
+     * Dump JSONObject to file.
+     * @param p_jsonObject
+     * @return boolean
+     ********************************************************************************************/
     public static boolean dumpJsonFile(JSONObject p_jsonObject) {
         try {
             FileWriter fw = new FileWriter(filePath);

@@ -1,11 +1,22 @@
+/**************************************************************************************************************
+ * Classe implémentant la couche de persistance du micro service du release 0.
+ * 
+ * @author  Francois Poulin
+ * @date    6 juin 2018
+ * @version 1.0
+ * 
+ *************************************************************************************************************/
+
+// Packages:
 package ftf.s6projet.services.release0;
 
-
+// Imports generaux
 import ftf.s6projet.services.release0.PersistanceLayer;
 import ftf.s6projet.services.release0.Student;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -37,16 +48,16 @@ public class PersistanceLayerIT {
         PersistanceLayer persistanceLayer = new PersistanceLayer();
         Student testStudent = new Student("test", "test1234", "1234");
         persistanceLayer.postUser(testStudent);
-        assertEquals(persistanceLayer.getUser(testStudent).m_cip, testStudent.m_cip);
-        assertEquals(persistanceLayer.getUser(testStudent).m_name, testStudent.m_name);
-        assertEquals(persistanceLayer.getUser(testStudent).m_password, testStudent.m_password);
+        assertEquals(persistanceLayer.getUser(testStudent).getCip(), testStudent.getCip());
+        assertEquals(persistanceLayer.getUser(testStudent).getName(), testStudent.getName());
+        assertEquals(persistanceLayer.getUser(testStudent).getPassword(), testStudent.getPassword());
     }
     
     @Test
     void getAllUsersFromJsonFile() {
         PersistanceLayer persistanceLayer = new PersistanceLayer();
         ArrayList<Student> studentsList = persistanceLayer.getAllUsers();
-        assertEquals(8, studentsList.size());
+        assertTrue(3 < studentsList.size());
     }
 
     @Test
@@ -56,9 +67,9 @@ public class PersistanceLayerIT {
 
         persistanceLayer.postUser(testStudent);
         Student user = persistanceLayer.getUser(testStudent);
-        assertEquals(user.m_cip, "test1234");
-        assertEquals(user.m_name, "test");
-        assertEquals(user.m_password, "1234");
+        assertEquals(user.getCip(), testStudent.getCip());
+        assertEquals(user.getName(), testStudent.getName());
+        assertEquals(user.getPassword(), testStudent.getPassword());
     }
     
     @Test
@@ -68,13 +79,13 @@ public class PersistanceLayerIT {
 
         persistanceLayer.postUser(testStudent);
 
-        testStudent.m_password = "4321";
+        testStudent.setPassword("4321");
 
         persistanceLayer.putUser(testStudent);
         Student user = persistanceLayer.getUser(testStudent);
-        assertEquals(user.m_cip, "test1234");
-        assertEquals(user.m_name, "test");
-        assertEquals(user.m_password, "4321");
+        assertEquals(user.getCip(), testStudent.getCip());
+        assertEquals(user.getName(), testStudent.getName());
+        assertEquals(user.getPassword(), testStudent.getPassword());
     }
 
     @Test
