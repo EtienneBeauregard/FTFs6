@@ -10,6 +10,23 @@ import java.util.ArrayList;
  **********************************************************************************************/
 public class ServiceAuthentification {
 	
+	private static ServiceAuthentification INSTANCE = new ServiceAuthentification(); // instance de la base de données.
+
+    /******************************************************************************************
+     * Accès au singleton.
+     * 
+     * @return L'instance du singleton.
+     * 
+     ******************************************************************************************/
+    public static ServiceAuthentification theService() {
+        if(INSTANCE == null) {
+            INSTANCE = new ServiceAuthentification(); // Parfois nécessaire lors de tests, lorsqu'on
+                                       // réinitialise le singleton.
+        }
+
+        return INSTANCE;
+    }
+	
     /********************************************************************************************
      * Constructeur.
      * 
@@ -41,7 +58,7 @@ public ArrayList<Student> getStudentsInfo() {
 		ArrayList<Student> listStudent = persistance.getAllUsers(); //Francois me retorune un array list de student
 		
 		if(listStudent.size()==0) {
-			Student error = new Student("Error", "Error", "Error");
+			Student error = new Student("Error", "Errorrrr", "Error");
 			listStudent.add(error);
 		}
 		return listStudent;
@@ -56,7 +73,7 @@ public ArrayList<Student> getStudentsInfo() {
 	public Student getStudentInfo(String CIP) {
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		Student student = persistance.getUser(new Student("",CIP,""));
+		Student student = persistance.getUser(new Student("null",CIP,"null"));
 		
 		return student;
 		/*if(studentArray[0] != null) {
@@ -84,7 +101,7 @@ public ArrayList<Student> getStudentsInfo() {
 			return student;
 		}
 	    else{
-			Student error = new Student("Error", "Error", "Error");
+			Student error = new Student("Error", "Errorrrr", "Error");
 			return error;
 	    }
     }
@@ -102,11 +119,11 @@ public ArrayList<Student> getStudentsInfo() {
 		
 		Student newStudent = getStudentInfo(student.getCip());
 		
-		if(message_retour == true && newStudent.getCip() != "Error"){
+		if(message_retour == true && newStudent.getCip() != "Errorrrr"){
 			return newStudent;
 		}
 	    else{
-			Student error = new Student("Error", "Error", "Error");
+			Student error = new Student("Error", "Errorrrr", "Error");
 			return error;
 	    }
     }
@@ -121,7 +138,7 @@ public ArrayList<Student> getStudentsInfo() {
 		
 		PersistanceLayer persistance = new PersistanceLayer();
 		
-		boolean message_retour = persistance.delUser(new Student("",CIP,""));
+		boolean message_retour = persistance.delUser(new Student("null",CIP,"null"));
 		if(message_retour == true) {
 			return "Delete student info "+ CIP;
 		}

@@ -57,6 +57,7 @@ class ResourceStudentTest {
     	Student student = new Student("Karan", "kalk1234", "1234");
 
     	ResourceStudent resource = new ResourceStudent();
+    	
         assertTrue(student.equals(resource.getStudent(student.getCip())));
     }
 
@@ -78,13 +79,16 @@ class ResourceStudentTest {
 
         // Puis on conclue le test:
         assertTrue(ServiceAuthentification.theService().getStudentsInfo().contains(student2));
+        
+        // On retire le student à la fin du test du BD
+        resource.deleteStudent(student2.getCip());
     }
 
 
     @Test
     void testOnModifyExistingStudent() {
-    	Student oldStudent = new Student("Bob", "bobj1234", "9876123");
-    	Student newStudent = new Student("Jerry","bobj1234", "2345678");
+    	Student oldStudent = new Student("Karan", "kalk1234", "1234");
+    	Student newStudent = new Student("Jerry","kalk1234", "2345678");
         assertTrue(ServiceAuthentification.theService().getStudentsInfo().contains(oldStudent));
         assertFalse(ServiceAuthentification.theService().getStudentsInfo().contains(newStudent));
 
@@ -92,16 +96,22 @@ class ResourceStudentTest {
         resource.putStudent(newStudent);
         assertTrue(ServiceAuthentification.theService().getStudentsInfo().contains(newStudent));
         assertFalse(ServiceAuthentification.theService().getStudentsInfo().contains(oldStudent));
+        
+        // On remets l'étudiant existant pour garder la BD comme avant
+        resource.putStudent(oldStudent);
     }
 
 
     @Test
     void testOnRemoveStudent() {
-    	Student studentToRemove = new Student("Jerry","bobj1234", "2345678");
+    	Student studentToRemove = new Student("Karan", "kalk1234", "1234");
         assertTrue(ServiceAuthentification.theService().getStudentsInfo().contains(studentToRemove));
 
         ResourceStudent resource = new ResourceStudent();
         resource.deleteStudent(studentToRemove.getCip());
         assertFalse(ServiceAuthentification.theService().getStudentsInfo().contains(studentToRemove));
+        
+        // On remets le student dans la BD
+        resource.postStudent(studentToRemove);
     }
 }

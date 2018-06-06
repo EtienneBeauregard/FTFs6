@@ -144,7 +144,7 @@ public class Student {
         Student student = (Student)p_rhs;
         
         // On compare les propriétés:
-        if((m_name == student.getName()) && (m_cip == student.getCip()) && (m_password == student.getPassword())) {
+        if(m_name.equals(student.getName()) && m_cip.equals(student.getCip()) && (m_password.equals(student.getPassword()))) {
             return true;
         }
 
