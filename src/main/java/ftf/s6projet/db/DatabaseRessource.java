@@ -12,5 +12,11 @@ import javax.ws.rs.core.MediaType;
 
 @Path("db")
 public class DatabaseRessource {
+	private DatabasePersistance dp = new DatabasePersistance();
 	
+	@GET
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String getStudents() {
+		return dp.init(); 
+}
 }
